@@ -5,7 +5,6 @@ struct node {
     int num;
     struct node *next;
 };
-
 struct node *fnNode, *tmp, *stnode;
 void createNodeList(int n);
 void displayList();
