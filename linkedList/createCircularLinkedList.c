@@ -9,6 +9,11 @@ struct node *fnNode, *tmp, *stnode;
 struct node * createNodeCircular(int n);
 void displayList();
 struct node *insertionInCircular(struct node * h, int n);
+void insertAtEnd();
+void insertBeforeNode();
+void insertAfterNode();
+void deleteFromBeginning();
+void deleteAtEnd();
 
 
 int main(){
@@ -25,7 +30,11 @@ int main(){
     scanf("%d", &m);
     if(m == 1){
         insertionInCircular(okay, n);
-    }
+    } 
+    // else if (m == 2){
+    //     deleteAtEnd();
+    //     deleteFromBeginning();
+    // }
     printf("Displaying node list: \n");
     displayList();
     return 0;
@@ -100,4 +109,107 @@ void displayList(){
     } else {
         printf("Cannot be made\n");
     }
+}
+
+
+
+void insertAtEnd(){
+    int val;
+    scanf("%d", &val);
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->num = val;
+    newNode->next = NULL;
+
+    if(stnode == NULL){
+        stnode = newNode;
+    } else {
+        struct node *temp = stnode;
+        while(temp->next != NULL){
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+
+}
+
+void deleteFromBeginning() {
+    if(stnode == NULL) {
+        printf("Underflow\n");
+        return;
+    }
+    struct node * del = (struct node *)malloc(sizeof(struct node));
+    del = stnode;
+    stnode = stnode->next;
+    free(del);
+    printf("Node deleted from the beginning\n");
+}
+
+
+
+void insertBeforeNode(){
+    int val, newVal;
+    scanf("%d", &val);
+    scanf("%d", &newVal);
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->num = newVal;
+
+    if(stnode == NULL) return;
+
+    if(stnode->num == val){
+        newNode->next = stnode;
+        stnode = newNode;
+        return;
+    }
+
+    struct node *temp = stnode;
+    while(temp->next != NULL && temp->next->num != val){
+        temp = temp->next;
+    }
+
+    if(temp->next == NULL) return;
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+void insertAfterNode(){
+    int val, newVal;
+    scanf("%d", &val);
+    scanf("%d", &newVal);
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->num = newVal;
+
+    if(stnode == NULL) return;
+
+    struct node *temp = stnode;
+    while(temp != NULL && temp->num != val){
+        temp = temp->next;
+    }
+    if(temp == NULL) return;
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+
+
+void deleteAtEnd() {
+    if(fnNode == NULL) {
+        printf("Underflow\n");
+        return;
+    }
+    struct node * del2 = (struct node *)malloc(sizeof(struct node));
+    del2 = fnNode;
+    struct node *prev = NULL;
+    while(del2->next != NULL) {
+        prev = del2;
+        del2 = del2->next;
+    }
+
+    if(prev == NULL) {
+        free(fnNode);
+        fnNode = NULL;
+    } else {
+        prev->next = NULL;
+        free(del2);
+    }
+    printf("Node deleted\n");
 }

@@ -11,7 +11,7 @@ void reverseStack(int *arr, int *counter);
 
 int main(void) {
     printf("Enter size of stack: ");
-    scanf("%d", &s);  // Removed the newline character
+    scanf("%d", &s); 
     
     arr = (int *) malloc(s * sizeof(int));
     

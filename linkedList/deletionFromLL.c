@@ -106,6 +106,7 @@ void deleteAfterNode() {
     free(nodeToDelete);
     printf("Node deleted after %d.\n", val);
 }
+
 void deleteBeforeNode() {
     if(fnNode == NULL || fnNode->next == NULL) {
         printf("Cannot delete before specific node \n");
@@ -142,6 +143,8 @@ void deleteBeforeNode() {
     }
     printf("Node deleted before %d\n", val);
 }
+
+
 void deleteAtEnd() {
     if(fnNode == NULL) {
         printf("Underflow\n");
