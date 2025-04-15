@@ -11,40 +11,20 @@ struct node *fnNode, *tmp, *stnode, *p2;
 struct node *createNode(int n);
 void displayTree(struct node *root);
 int countNodes(struct node *root);
-struct node *insertNode(struct node *root, int data);
-void invertTree(struct node *root);
+struct node *root, *root2;
+struct node *mirrorImage(struct node *root);
 
-int main() {
+void main() {
     int n, m;
     printf("Enter the number of nodes: ");
     scanf("%d", &n);
-    struct node* root = NULL;
-    if (n > 0) {
-        root = createNode(n);
-    }
-    
+    root = createNode(n);
     printf("Original tree: \n");
     displayTree(root);
-    printf("The number of nodes in the tree is: %d\n", countNodes(root));
-
-    invertTree(root);
+    printf("The number of nodes: %d\n", countNodes(root));
+    root2 = mirrorImage(root);
     printf("Tree after inversion: \n");
-    displayTree(root);
-    printf("The number of nodes in the tree is: %d\n", countNodes(root));
-
-    printf("Press 1 to insert a new node\nPress 2 to exit\n");
-    scanf("%d", &m);
-    if (m == 1) {
-        int data;
-        printf("Enter data for the new node: ");
-        scanf("%d", &data);
-        root = insertNode(root, data);
-        printf("Displaying tree after insertion: \n");
-        displayTree(root);
-        printf("The number of nodes in the tree is: %d\n", countNodes(root));
-    }
-    
-    return 0;
+    displayTree(root2);
 }
 
 struct node *createNode(int n) {
@@ -54,9 +34,9 @@ struct node *createNode(int n) {
         printf("Enter data for node 1: ");
         scanf("%d", &num);
         stnode->num = num;
-        stnode->left = stnode->right = NULL;
+        stnode->left = NULL;
+        stnode->right = NULL;
         tmp = stnode;
-
         for (int i = 2; i <= n; i++) {
             fnNode = (struct node *)malloc(sizeof(struct node));
             if (fnNode == NULL) {
@@ -66,9 +46,15 @@ struct node *createNode(int n) {
                 printf("Enter data for node %d: ", i);
                 scanf("%d", &num);
                 fnNode->num = num;
-                fnNode->left = fnNode->right = NULL;
-                tmp->left = fnNode;
-                tmp = tmp->left;
+                fnNode->left = NULL;
+                fnNode->right = NULL;
+                if(i&1){
+                    tmp->right = fnNode;
+                    tmp = tmp->right;
+                } else {
+                    tmp->left = fnNode;
+                    tmp = tmp->left;
+                }
             }
         }
     } else {
@@ -92,31 +78,18 @@ int countNodes(struct node *root) {
     return 1 + countNodes(root->left) + countNodes(root->right);
 }
 
-struct node *insertNode(struct node *root, int data) {
-    struct node *newNode = (struct node *)malloc(sizeof(struct node));
-    newNode->num = data;
-    newNode->left = newNode->right = NULL;
-
-    if (root == NULL) {
-        return newNode;
-    } else {
-        struct node *tmp = root;
-        while (tmp->left != NULL) {
-            tmp = tmp->left;
-        }
-        tmp->left = newNode;
+struct node *mirrorImage(struct node *root){
+    struct node *ptr;
+    if(root!=NULL){
+        mirrorImage(root->left);
+        printf("Hello");
+        ptr=root->left;
+        printf("Hello2");
+        ptr->left = ptr->right;
+        printf("Hello3");
+        root->right=ptr;
+        mirrorImage(root->right);
     }
-    
-    return root;
 }
 
-void invertTree(struct node *root) {
-    if (root == NULL) {
-        return;
-    }
-    struct node* temp = root->left;
-    root->left = root->right;
-    root->right = temp;
-    invertTree(root->left);
-    invertTree(root->right);
-}
+
