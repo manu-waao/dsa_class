@@ -71,33 +71,51 @@ void displayTree(struct node *root) {
     }
 }
 
-int countNodes(struct node *root) {
-    if (root == NULL) {
+
+int totalnodes(struct node* tree) {
+    if (tree == NULL)
         return 0;
-    }
-    return 1 + countNodes(root->left) + countNodes(root->right);
+    return totalnodes(tree->left) + totalnodes(tree->right) + 1;
 }
 
-// struct node *mirrorImage(struct node *root){
-//     struct node *ptr;
-//     if(root!=NULL){
-//         mirrorImage(root->left);
-//         printf("Hello");
-//         ptr=root->left;
-//         printf("Hello2");
-//         ptr->left = ptr->right;
-//         printf("Hello3");
-//         root->right=ptr;
-//         mirrorImage(root->right);
-//     }
-// }
+
+int external_nodes(struct node* tree) {
+    if (tree == NULL)
+        return 0;
+    if (tree->left == NULL && tree->right == NULL)
+        return 1;
+    return external_nodes(tree->left) + external_nodes(tree->right);
+}
 
 
-struct node* mirrorImage(struct node* root) {
-    if (root != NULL) {
-        struct node* temp = root->left;
-        root->left = mirror_image(root->right);
-        root->right = mirror_image(temp);
+int internal_nodes(struct node* tree) {
+    if (tree == NULL || (tree->left == NULL && tree->right == NULL))
+        return 0;
+    return internal_nodes(tree->left) + internal_nodes(tree->right) + 1;
+}
+
+int height(struct node* tree) {
+    if (tree == NULL)
+        return 0;
+    int left = height(tree->left);
+    int right = height(tree->right);
+    return (left > right ? left : right) + 1;
+}
+
+
+
+void del_tree(struct node* tree) {
+    if (tree != NULL) {
+        del_tree(tree->left);
+        del_tree(tree->right);
+        free(tree);
     }
-    return root;
+}
+
+
+void main() {
+    struct node* root = NULL;
+    int val, choice;
+
+    
 }
