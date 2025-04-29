@@ -134,6 +134,24 @@ int removeFromAllLists(struct node **bookingList, struct node **tripList, struct
     return found;
 }
 
+
+// void recursiveReverse(struct Node** head_ref)
+// {
+// 	struct Node* first;
+// 	struct Node* rest;
+// 	if (*head_ref == NULL)
+// 	return; 
+// 	first = *head_ref; 
+// 	rest = first->next;
+// 	if (rest == NULL)
+// 	return;
+// 	recursiveReverse(&rest);
+// 	first->next->next = first; 
+// 	first->next = NULL;		 
+// 	*head_ref = rest;			 
+// }
+
+
 void processFile(const char *filename, int maxPeople) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
@@ -182,3 +200,7 @@ void processFile(const char *filename, int maxPeople) {
     freeList(tripList);
     freeList(waitList);
 }
+
+
+
+
