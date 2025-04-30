@@ -78,21 +78,6 @@ int countNodes(struct node *root) {
     return 1 + countNodes(root->left) + countNodes(root->right);
 }
 
-// struct node *mirrorImage(struct node *root){
-//     struct node *ptr;
-//     if(root!=NULL){
-//         mirrorImage(root->left);
-//         printf("Hello");
-//         ptr=root->left;
-//         printf("Hello2");
-//         ptr->left = ptr->right;
-//         printf("Hello3");
-//         root->right=ptr;
-//         mirrorImage(root->right);
-//     }
-// }
-
-
 struct node* mirrorImage(struct node* root) {
     if (root != NULL) {
         struct node* temp = root->left;
