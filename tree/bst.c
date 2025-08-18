@@ -12,6 +12,7 @@ struct node *createNode(int n);
 void displayTree(struct node *root);
 int countNodes(struct node *root);
 struct node *insertNode(struct node *root, int data);
+void findElement(struct node *root);
 
 int main() {
     int n, m;
@@ -24,14 +25,7 @@ int main() {
     printf("BST tree (in preorder): \n");
     displayTree(root);
     printf("The number of nodes in the tree is: %d\n", countNodes(root));
-    int data;
-    printf("Enter data for the new node: ");
-    scanf("%d", &data);
-    root = insertNode(root, data);
-    printf("Displaying tree after insertion (in preorder): \n");
-    displayTree(root);
-    printf("The number of nodes in the tree is: %d\n", countNodes(root));
-    
+    findElement(root);
     return 0;
 }
 
@@ -56,6 +50,7 @@ struct node *createNode(int n) {
     return stnode;
 }
 
+
 void displayTree(struct node *root) {
     if (root != NULL) {
         printf("%d\n", root->num);
@@ -63,6 +58,34 @@ void displayTree(struct node *root) {
         displayTree(root->right);
     }
 }
+
+void findElement(struct node *root){
+    int lookupVal, iter=1;
+    scanf("%d", &lookupVal);
+    printf("Enter value to search: ");
+    if (root == NULL) {
+        printf("Tree is empty.\n");
+        return;
+    }else{
+        struct node *current = root;
+        while (current != NULL) {
+            if (lookupVal == current->num) {
+                printf("Element %d found in the tree after %d iterations \n", lookupVal, iter);
+                printf("Level %d, ", iter-1);
+                printf("Height %d, ", iter);
+                return;
+            } else if (lookupVal < current->num) {
+                current = current->left;
+            } else {
+                current = current->right;
+            }
+            iter++;
+        }
+        printf("Element %d not found in the tree.\n", lookupVal);   
+    }
+}
+
+
 
 int countNodes(struct node *root) {
     if (root == NULL) {
@@ -78,7 +101,6 @@ struct node *insertNode(struct node *root, int data) {
         newNode->left = newNode->right = NULL;
         return newNode;
     }
-    
     if (data < root->num) {
         root->left = insertNode(root->left, data);
     } else {
