@@ -36,6 +36,7 @@ void main(void) {
         printf("enter val : ");
         scanf("%d", &val);
         arr[i] = val;
+        
     }
     doHeap(arr, sz);
     printf("Sorted array : ");

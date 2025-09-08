@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void merge(int arr[], int l, int m, int r) {
+void mergeTaken(int arr[], int l, int m, int r) {
     int n1 = m - l + 1;
     int n2 = r - m;
     int left[n1], right[n2];
@@ -38,7 +38,7 @@ void mergeSort(int arr[], int l, int r) {
         int m = l + (r - l) / 2;
         mergeSort(arr, l, m);
         mergeSort(arr, m + 1, r);
-        merge(arr, l, m, r);
+        mergeTaken(arr, l, m, r);
     }
 }
 
