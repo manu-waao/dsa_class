@@ -21,7 +21,8 @@ void doQuick(int arr[], int low, int high) {
     if (low < high) {
         int p = doPart(arr, low, high);
         doQuick(arr, low, p - 1);
-        doQuick(arr, p + 1, high);
+        // doQuick(arr, p + 1, high);
+        doQuick(arr, high, p-1);
     }
 }
 

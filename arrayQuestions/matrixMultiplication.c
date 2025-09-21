@@ -24,7 +24,8 @@ void main(){
              for (c = 0; c < n; c++)
                  R[i][j] += A[i][c] * B[c][j];
          }
-     }
+    }
+
 	 printf("\n");
      printf("Resultant matrix \n");
      for (i = 0; i < m; i++) {
